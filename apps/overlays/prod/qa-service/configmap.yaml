@@ -1,0 +1,10 @@
+# apps/overlays/prod/qa-service/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qa-service-config-prod
+data:
+  LOG_LEVEL: "info"
+  SERVER_MODE: "prod"
+  # Add other environment-specific configurations here
+  # e.g., MYSQL_HOST: "mysql.prod.svc.cluster.local"

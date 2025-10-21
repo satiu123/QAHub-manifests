@@ -1,0 +1,10 @@
+# apps/overlays/dev/notification-service/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notification-service-config-dev
+data:
+  LOG_LEVEL: "debug"
+  SERVER_MODE: "dev"
+  # Add other environment-specific configurations here
+  # e.g., MYSQL_HOST: "mysql.dev.svc.cluster.local"

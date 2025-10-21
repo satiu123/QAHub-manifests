@@ -1,0 +1,32 @@
+# apps/base/notification-service/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+  labels:
+    app: notification-service
+spec:
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+      - name: notification-service
+        image: satiu/qahub-notification-service:latest # This tag will be replaced by overlays
+        ports:
+        - containerPort: 50051
+          name: grpc
+        readinessProbe:
+          grpc:
+            port: 50051
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          grpc:
+            port: 50051
+          initialDelaySeconds: 15
+          periodSeconds: 20

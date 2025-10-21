@@ -1,0 +1,12 @@
+# apps/base/qa-service/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: qa-service
+spec:
+  selector:
+    app: qa-service
+  ports:
+  - name: grpc
+    port: 50051
+    targetPort: 50051

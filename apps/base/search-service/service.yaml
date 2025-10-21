@@ -1,0 +1,12 @@
+# apps/base/search-service/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-service
+spec:
+  selector:
+    app: search-service
+  ports:
+  - name: grpc
+    port: 50051
+    targetPort: 50051

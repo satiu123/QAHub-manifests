@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# All resources, including bases and local files, are listed here.
+resources:
+- ../../base/notification-service
+- ../../base/search-service
+- ../../base/qa-service
+- ../../base/user-service
+- ./notification-service/configmap.yaml
+- ./search-service/configmap.yaml
+- ./qa-service/configmap.yaml
+- ./user-service/configmap.yaml
+
+patches:
+- path: ./notification-service/patch-deployment.yaml
+  target:
+    kind: Deployment
+    name: notification-service
+- path: ./search-service/patch-deployment.yaml
+  target:
+    kind: Deployment
+    name: search-service
+- path: ./qa-service/patch-deployment.yaml
+  target:
+    kind: Deployment
+    name: qa-service
+- path: ./user-service/patch-deployment.yaml
+  target:
+    kind: Deployment
+    name: user-service

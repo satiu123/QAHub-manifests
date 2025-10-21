@@ -1,0 +1,5 @@
+# 忽略 kustomize build 的结果
+kustomize-build-output.yaml
+# 忽略未加密的 secrets.yaml 文件，强制使用 SOPS 或其他加密工具
+secrets.yaml
+!*.sops.yaml

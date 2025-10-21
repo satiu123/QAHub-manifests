@@ -1,0 +1,25 @@
+# apps/overlays/prod/user-service/patch-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: user-service
+        # Example: Set resource limits for the environment
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        # Inject environment-specific configuration
+        envFrom:
+        - configMapRef:
+            name: user-service-config-prod
+        # - secretRef:
+        #     name: user-service-secrets-prod

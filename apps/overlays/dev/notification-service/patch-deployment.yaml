@@ -1,0 +1,25 @@
+# apps/overlays/dev/notification-service/patch-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: notification-service
+        # Example: Set resource limits for the environment
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        # Inject environment-specific configuration
+        envFrom:
+        - configMapRef:
+            name: notification-service-config-dev
+        # - secretRef:
+        #     name: notification-service-secrets-dev

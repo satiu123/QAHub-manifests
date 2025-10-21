@@ -1,0 +1,25 @@
+# apps/overlays/prod/search-service/patch-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-service
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: search-service
+        # Example: Set resource limits for the environment
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        # Inject environment-specific configuration
+        envFrom:
+        - configMapRef:
+            name: search-service-config-prod
+        # - secretRef:
+        #     name: search-service-secrets-prod

@@ -1,0 +1,32 @@
+# apps/base/qa-service/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qa-service
+  labels:
+    app: qa-service
+spec:
+  selector:
+    matchLabels:
+      app: qa-service
+  template:
+    metadata:
+      labels:
+        app: qa-service
+    spec:
+      containers:
+      - name: qa-service
+        image: satiu/qahub-qa-service:latest # This tag will be replaced by overlays
+        ports:
+        - containerPort: 50051
+          name: grpc
+        readinessProbe:
+          grpc:
+            port: 50051
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          grpc:
+            port: 50051
+          initialDelaySeconds: 15
+          periodSeconds: 20

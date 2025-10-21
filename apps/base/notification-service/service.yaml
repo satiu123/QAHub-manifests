@@ -1,0 +1,12 @@
+# apps/base/notification-service/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-service
+spec:
+  selector:
+    app: notification-service
+  ports:
+  - name: grpc
+    port: 50051
+    targetPort: 50051
