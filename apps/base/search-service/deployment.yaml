@@ -30,3 +30,9 @@ spec:
             port: 50053
           initialDelaySeconds: 15
           periodSeconds: 20
+        securityContext:
+          runAsUser: 1001
+          runAsGroup: 1001
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
