@@ -18,15 +18,15 @@ spec:
       - name: notification-service
         image: satiu/qahub-notification-service:latest # This tag will be replaced by overlays
         ports:
-        - containerPort: 50051
+        - containerPort: 50054
           name: grpc
         readinessProbe:
           grpc:
-            port: 50051
+            port: 50054
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           grpc:
-            port: 50051
+            port: 50054
           initialDelaySeconds: 15
           periodSeconds: 20

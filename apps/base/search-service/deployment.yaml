@@ -18,15 +18,15 @@ spec:
       - name: search-service
         image: satiu/qahub-search-service:latest # This tag will be replaced by overlays
         ports:
-        - containerPort: 50051
+        - containerPort: 50053
           name: grpc
         readinessProbe:
           grpc:
-            port: 50051
+            port: 50053
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
           grpc:
-            port: 50051
+            port: 50053
           initialDelaySeconds: 15
           periodSeconds: 20
