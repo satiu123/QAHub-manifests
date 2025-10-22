@@ -5,6 +5,25 @@ metadata:
   name: user-service-config-dev
 data:
   LOG_LEVEL: "debug"
+  LOG_FORMAT: "json"
   SERVER_MODE: "dev"
   # Add other environment-specific configurations here
   # e.g., MYSQL_HOST: "mysql.dev.svc.cluster.local"
+  
+  # MySQL config
+  MYSQL_HOST: "mariadb-dev.database.svc.cluster.local"
+  MYSQL_PORT: "3306"
+  MYSQL_USER: "user_dev"
+  MYSQL_DBNAME: "qahub_dev"
+  MYSQL_CHARSET: "utf8mb4"
+  MYSQL_PARSETIME: "True"
+  MYSQL_LOC: "Local"
+
+  # Service-specific config
+  SERVICES_USER_SERVICE_TOKEN_EXPIRE_TIME: "24" # in hours
+  SERVICES_USER_SERVICE_GRPC_PORT: "50051"
+  SERVICES_USER_SERVICE_HTTP_PORT: "8081"
+
+  SERVICES_USER_SERVICE_PUBLIC_METHODS: "/user.UserService/Register,/user.UserService/Login,/grpc.health.v1.Health/Check"
+
+

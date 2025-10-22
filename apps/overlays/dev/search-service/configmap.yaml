@@ -4,7 +4,18 @@ kind: ConfigMap
 metadata:
   name: search-service-config-dev
 data:
+  # Log config
   LOG_LEVEL: "debug"
-  SERVER_MODE: "dev"
-  # Add other environment-specific configurations here
-  # e.g., MYSQL_HOST: "mysql.dev.svc.cluster.local"
+  LOG_FORMAT: "json"
+
+  # Kafka config
+  KAFKA_BROKERS: "kafka.messaging.svc.cluster.local:9092"
+  KAFKA_TOPICS_QA_EVENTS: "qa_events_dev"
+
+  # Elasticsearch config
+  ELASTICSEARCH_URLS: "http://elasticsearch.database.svc.cluster.local:9200"
+
+  # Service-specific config
+  SERVICES_SEARCH_SERVICE_GRPC_PORT: "50053"
+  SERVICES_SEARCH_SERVICE_HTTP_PORT: "8083"
+  SERVICES_SEARCH_SERVICE_PUBLIC_METHODS: "/grpc.health.v1.Health/Check"

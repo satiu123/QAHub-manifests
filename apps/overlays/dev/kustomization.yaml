@@ -29,3 +29,8 @@ patches:
   target:
     kind: Deployment
     name: user-service
+generators:
+- ./user-service/secret-generator.yaml
+- ./qa-service/secret-generator.yaml
+- ./notification-service/secret-generator.yaml
+# - ./search-service/ksops-generator.yaml

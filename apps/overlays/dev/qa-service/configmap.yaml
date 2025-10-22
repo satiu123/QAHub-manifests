@@ -4,7 +4,24 @@ kind: ConfigMap
 metadata:
   name: qa-service-config-dev
 data:
+  # Log config
   LOG_LEVEL: "debug"
-  SERVER_MODE: "dev"
-  # Add other environment-specific configurations here
-  # e.g., MYSQL_HOST: "mysql.dev.svc.cluster.local"
+  LOG_FORMAT: "json"
+
+  # MySQL config
+  MYSQL_HOST: "mariadb.database.svc.cluster.local"
+  MYSQL_PORT: "3306"
+  MYSQL_USER: "qahub_user"
+  MYSQL_DBNAME: "qahub"
+  MYSQL_CHARSET: "utf8mb4"
+  MYSQL_PARSETIME: "True"
+  MYSQL_LOC: "Local"
+
+  # Kafka config
+  KAFKA_BROKERS: "kafka.messaging.svc.cluster.local:9092" 
+  KAFKA_TOPICS_QA_EVENTS: "qa_events_dev" # dev环境使用带后缀的topic
+
+  # Service-specific config
+  SERVICES_QA_SERVICE_GRPC_PORT: "50052"
+  SERVICES_QA_SERVICE_HTTP_PORT: "8082"
+  SERVICES_QA_SERVICE_PUBLIC_METHODS: "/qa.QAService/ListQuestions,/qa.QAService/GetQuestion,/grpc.health.v1.Health/Check"
