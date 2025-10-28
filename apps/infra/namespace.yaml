@@ -1,0 +1,10 @@
+# apps/overlays/dev/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: database
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: messaging

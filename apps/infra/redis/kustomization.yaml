@@ -1,0 +1,15 @@
+# infra/redis/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+- name: redis
+  # 使用 OCI 格式的 URL，这是 Helm 3 的新标准
+  repo: oci://registry-1.docker.io/bitnamicharts
+  # 从 README 中可以找到最新的 chart 版本号，锁定版本是个好习惯
+  version: 20.0.0
+  releaseName: qahub-redis
+  namespace: database # 确保这个命名空间存在，或者由其他配置创建
+  valuesFile: values.yaml
+generators:
+- secret-generator.yaml

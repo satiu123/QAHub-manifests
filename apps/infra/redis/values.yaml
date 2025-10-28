@@ -1,0 +1,22 @@
+# infra/redis/values.yaml
+auth:
+  existingSecret: redis-secret
+  passwordSecretKey: redis-password
+
+primary:
+  persistence:
+    enabled: true
+    size: 2Gi 
+
+image:
+  repository: bitnami/redis
+  tag: latest
+
+primary:
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"

@@ -1,0 +1,24 @@
+# infra/mariadb/values.yaml
+
+auth:
+  existingSecret: qahub-mariadb-secret-dev
+  rootPasswordSecretKey: mariadb-root-password
+  passwordSecretKey: mariadb-password
+  database: "qahub"
+  username: "qahub_user"
+
+# 在 standalone 模式下，我们主要配置 primary 部分
+primary:
+  persistence:
+    enabled: true
+    size: 4Gi
+  resources:
+    requests:
+      cpu: 200m    # 启动时请求 0.2 核 CPU
+      memory: 512Mi # 启动时请求 512 MiB 内存
+    limits:
+      cpu: 1000m   # 最多使用 1 核 CPU
+      memory: 1Gi   # 最多使用 1 GiB 内存
+image:
+  repository: bitnami/mariadb
+  tag: latest

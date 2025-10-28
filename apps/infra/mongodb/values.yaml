@@ -1,0 +1,24 @@
+auth:
+  enabled: true
+  existingSecret: "mongodb-secret"
+  rootPasswordSecretKey: "mongodb-root-password"
+  usernames: 
+  - "qahub_user"
+  databases: 
+  - "notification_db"
+
+persistence:
+  enabled: true
+  size: 2Gi
+
+image:
+  repository: bitnami/mongodb
+  tag: latest
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+  limits:
+    cpu: "1000m" # 1 Core
+    memory: "1Gi"

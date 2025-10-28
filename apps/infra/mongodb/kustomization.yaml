@@ -1,0 +1,15 @@
+# infra/mongodb/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# 使用 helmCharts 指令来渲染 Helm Chart
+helmCharts:
+- name: mongodb                
+  repo: oci://registry-1.docker.io/bitnamicharts
+  version: 16.0.0              
+  releaseName: qahub-mongodb    
+  namespace: database            
+  valuesFile: values.yaml
+
+generators:
+- secret-generator.yaml

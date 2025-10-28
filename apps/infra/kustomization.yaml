@@ -1,0 +1,15 @@
+# apps/infra/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # 基础架构
+  - namespace.yaml
+  - ./operators
+  - ./cert-manager
+  - ./db-migrator
+  - ./mariadb
+  - ./mongodb
+  - ./redis
+  - ./elasticsearch
+  - ./kafka

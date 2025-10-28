@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # Job 的名称
+  name: qahub-db-migrator
+  # 和 MariaDB 放在同一个命名空间，简化网络连接和 Secret 访问
+  namespace: database
+  # 添加注解，以便在CI/CD中进行清理或管理
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+spec:
+  # Job 失败后最多重试 3 次
+  backoffLimit: 3
+  # Job 完成 1 小时后，自动清理 Pod，避免占用资源
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      # Job 的 Pod 失败后不应在原地重启，而是由 Job 控制器创建新的 Pod
+      restartPolicy: OnFailure
+      
+      initContainers:
+        - name: wait-for-mariadb
+          # 使用一个包含 mariadb 客户端的官方镜像
+          image: bitnami/mariadb:latest
+          imagePullPolicy: IfNotPresent
+          # 这个 shell 命令会一直循环，直到成功 ping 通数据库为止
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "==> Waiting for MariaDB to become available..."
+              until mariadb-admin ping -h qahub-mariadb.database.svc.cluster.local -u "$MYSQL_USER" -p"$MYSQL_PASSWORD"; do
+                echo "MariaDB is not available yet. Retrying in 5 seconds..."
+                sleep 5
+              done
+              echo "==> MariaDB is ready! Starting migration."
+          # Init Container 也需要数据库凭证来执行 ping 操作
+          env:
+            - name: MYSQL_USER
+              value: "qahub_user" 
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  # 引用由 MariaDB Helm Chart 创建的 Secret
+                  name: qahub-mariadb-secret-dev
+                  # 从 Secret 中读取 'mariadb-password' 这个 key
+                  # 这个 key 的名称是由 Bitnami Chart 定义的，可以从文档中查到
+                  key: mariadb-password
+      containers:
+        - name: db-migrator
+          image: satiu/qahub-db-migrator:v1.0.0
+          imagePullPolicy: IfNotPresent
+          
+          # 迁移命令
+          command:
+            - /migrate # migrate CLI 的可执行文件路径
+            - -path
+            - /migrations # 脚本在镜像中的路径
+            - -database
+            # 动态构建数据库连接字符串，引用下面的环境变量
+            - "mysql://$(MYSQL_USER):$(MYSQL_PASSWORD)@tcp(qahub-mariadb.database.svc.cluster.local:3306)/qahub?charset=utf8mb4&parseTime=True&loc=Local"
+            - "up" # 执行向上迁移
+
+          # 从 Secret 中安全地加载数据库凭证到环境变量
+          env:
+            - name: MYSQL_USER
+              value: "qahub_user"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: qahub-mariadb-secret-dev
+                  key: mariadb-password
