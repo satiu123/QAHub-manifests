@@ -1,16 +1,28 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+buildMetadata:
+  - "--enable-helm"
+
 # All resources, including bases and local files, are listed here.
 resources:
 - ../../base/notification-service
 - ../../base/search-service
 - ../../base/qa-service
 - ../../base/user-service
+
 - ./notification-service/configmap.yaml
 - ./search-service/configmap.yaml
 - ./qa-service/configmap.yaml
 - ./user-service/configmap.yaml
+
+- ./ingress.yaml
+
+generators:
+- ./notification-service/secret-generator.yaml
+- ./qa-service/secret-generator.yaml
+- ./user-service/secret-generator.yaml
+- ./search-service/secret-generator.yaml
 
 patches:
 - path: ./notification-service/patch-deployment.yaml
@@ -29,8 +41,3 @@ patches:
   target:
     kind: Deployment
     name: user-service
-generators:
-- ./user-service/secret-generator.yaml
-- ./qa-service/secret-generator.yaml
-- ./notification-service/secret-generator.yaml
-# - ./search-service/ksops-generator.yaml

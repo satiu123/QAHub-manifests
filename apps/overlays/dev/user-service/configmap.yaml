@@ -11,13 +11,17 @@ data:
   # e.g., MYSQL_HOST: "mysql.dev.svc.cluster.local"
   
   # MySQL config
-  MYSQL_HOST: "mariadb-dev.database.svc.cluster.local"
+  MYSQL_HOST: "qahub-mariadb.database.svc.cluster.local"
   MYSQL_PORT: "3306"
-  MYSQL_USER: "user_dev"
-  MYSQL_DBNAME: "qahub_dev"
+  MYSQL_USERNAME: "qahub_user"
+  MYSQL_DBNAME: "qahub"
   MYSQL_CHARSET: "utf8mb4"
   MYSQL_PARSETIME: "True"
   MYSQL_LOC: "Local"
+
+  #Redis config
+  REDIS_ADDR: "qahub-redis-master.database.svc.cluster.local:6379"
+  REDIS_DB: "0"
 
   # Service-specific config
   SERVICES_USER_SERVICE_TOKEN_EXPIRE_TIME: "24" # in hours

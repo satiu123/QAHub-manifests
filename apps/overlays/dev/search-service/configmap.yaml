@@ -9,12 +9,15 @@ data:
   LOG_FORMAT: "json"
 
   # Kafka config
-  KAFKA_BROKERS: "kafka.messaging.svc.cluster.local:9092"
+  KAFKA_BROKERS: "qahub-kafka-kafka-bootstrap.messaging.svc.cluster.local:9092"
   KAFKA_TOPICS_QA_EVENTS: "qa_events_dev"
 
   # Elasticsearch config
-  ELASTICSEARCH_URLS: "http://elasticsearch.database.svc.cluster.local:9200"
-
+  ELASTICSEARCH_URLS: "http://qahub_user:test123@qahub-elasticsearch-es-http.database.svc.cluster.local:9200"
+  ELASTICSEARCH_USERNAME: "qahub_user"
+  ELASTICSEARCH_HOST: "qahub-elasticsearch-es-http.database.svc.cluster.local"
+  ELASTICSEARCH_PORT: "9200"
+  
   # Service-specific config
   SERVICES_SEARCH_SERVICE_GRPC_PORT: "50053"
   SERVICES_SEARCH_SERVICE_HTTP_PORT: "8083"

@@ -10,6 +10,7 @@ spec:
       containers:
       - name: search-service
         # Example: Set resource limits for the environment
+        image: satiu/qahub-search-service:v1.0.1
         resources:
           requests:
             cpu: "100m"
@@ -21,5 +22,5 @@ spec:
         envFrom:
         - configMapRef:
             name: search-service-config-dev
-        # - secretRef:
-        #     name: search-service-secrets-dev
+        - secretRef:
+            name: search-service-secrets-dev

@@ -1,0 +1,76 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qa-services-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "selfsigned-issuer"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.qahub.com
+    secretName: qa-tls-secret
+  rules:
+  - host: api.qahub.com
+    http:
+      paths:
+      - path: /grpc.health.v1.Health
+        pathType: Prefix
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 50051
+      - path: /user.UserService
+        pathType: Prefix
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 50051
+      - path: /grpc.health.v1.Health
+        pathType: Prefix
+        backend:
+          service:
+            name: qa-service
+            port:
+              number: 50052
+      - path: /qa.QAService
+        pathType: Prefix
+        backend:
+          service:
+            name: qa-service
+            port:
+              number: 50052
+      - path: /grpc.health.v1.Health
+        pathType: Prefix
+        backend:
+          service:
+            name: search-service
+            port:
+              number: 50053
+      - path: /search.SearchService
+        pathType: Prefix
+        backend:
+          service:
+            name: search-service
+            port:
+              number: 50053
+      - path: /grpc.health.v1.Health
+        pathType: Prefix
+        backend:
+          service:
+            name: notification-service
+            port:
+              number: 50054
+      - path: /notification.NotificationService
+        pathType: Prefix
+        backend:
+          service:
+            name: notification-service
+            port:
+              number: 50054

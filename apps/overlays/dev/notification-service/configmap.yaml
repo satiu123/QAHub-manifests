@@ -9,11 +9,14 @@ data:
   LOG_FORMAT: "json"
 
   # Kafka config
-  KAFKA_BROKERS: "kafka.messaging.svc.cluster.local:9092"
+  KAFKA_BROKERS: "qahub-kafka-kafka-bootstrap.messaging.svc.cluster.local:9092"
   KAFKA_TOPICS_NOTIFICATION_EVENTS: "notification_events_dev"
 
   # MongoDB config
-  MONGODB_DATABASE: "notification_db_dev" # dev环境使用独立的数据库
+  MONGODB_DATABASE: "notification_db" 
+  MONGODB_HOST: "qahub-mongodb.database.svc.cluster.local"
+  MONGODB_PORT: "27017"
+  MONGODB_USERNAME: "qahub_user"
 
   # Service-specific config
   SERVICES_NOTIFICATION_SERVICE_GRPC_PORT: "50054"

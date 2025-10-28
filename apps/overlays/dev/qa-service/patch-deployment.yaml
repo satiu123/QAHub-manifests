@@ -10,6 +10,7 @@ spec:
       containers:
       - name: qa-service
         # Example: Set resource limits for the environment
+        image: satiu/qahub-qa-service:v1.0.1
         resources:
           requests:
             cpu: "100m"

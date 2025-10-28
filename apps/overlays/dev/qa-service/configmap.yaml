@@ -9,16 +9,16 @@ data:
   LOG_FORMAT: "json"
 
   # MySQL config
-  MYSQL_HOST: "mariadb.database.svc.cluster.local"
+  MYSQL_HOST: "qahub-mariadb.database.svc.cluster.local"
   MYSQL_PORT: "3306"
-  MYSQL_USER: "qahub_user"
+  MYSQL_USERNAME: "qahub_user"
   MYSQL_DBNAME: "qahub"
   MYSQL_CHARSET: "utf8mb4"
   MYSQL_PARSETIME: "True"
   MYSQL_LOC: "Local"
 
   # Kafka config
-  KAFKA_BROKERS: "kafka.messaging.svc.cluster.local:9092" 
+  KAFKA_BROKERS: "qahub-kafka-kafka-bootstrap.messaging.svc.cluster.local:9092" 
   KAFKA_TOPICS_QA_EVENTS: "qa_events_dev" # dev环境使用带后缀的topic
 
   # Service-specific config
