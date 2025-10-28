@@ -3,3 +3,6 @@ kustomize-build-output.yaml
 # 忽略未加密的 secrets.yaml 文件，强制使用 SOPS 或其他加密工具
 secrets.yaml
 !*.sops.yaml
+
+# 忽略 Kustomize 下载的 Helm Chart 缓存
+**/charts/

@@ -3,3 +3,5 @@ creation_rules:
     pgp: 'C5877EAFB9F2B819B4F9D98D8BE1E4F3EE2D2F7B' 
   - path_regex: .*/prod/.*\.yaml$
     pgp: 'C5877EAFB9F2B819B4F9D98D8BE1E4F3EE2D2F7B' 
+  - path_regex: .*/infra/.*\.yaml$
+    pgp: 'C5877EAFB9F2B819B4F9D98D8BE1E4F3EE2D2F7B'

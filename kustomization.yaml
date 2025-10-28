@@ -1,11 +1,12 @@
-# QAHub-manifests/kustomization.yaml
+# /home/satiu/code/QAHub-manifests/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# 这里列出构成你 'dev' 环境的所有组件
 resources:
-  - apps/overlays/dev
+  # 1. 部署所有基础架构
+  - ./apps/infra
 
-# 启用插件支持
-buildMetadata:
-  - alpha-plugins-enable
-  - exec-enable
+  # 2. 部署 'dev' 环境的应用层
+  # 它会加载 base 应用，并应用 dev 特有的 patch 和 config
+  - ./apps/overlays/dev
