@@ -17,6 +17,7 @@ spec:
       containers:
       - name: notification-service
         image: satiu/qahub-notification-service:latest # This tag will be replaced by overlays
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 50054
           name: grpc

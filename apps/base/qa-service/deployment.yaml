@@ -17,6 +17,7 @@ spec:
       containers:
       - name: qa-service
         image: satiu/qahub-qa-service:latest # This tag will be replaced by overlays
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 50052
           name: grpc
